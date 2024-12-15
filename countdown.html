@@ -1,0 +1,504 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      /* Reset and basic styling */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: linear-gradient(120deg, #a6c0fe, #f68084);
+        font-family: Arial, sans-serif;
+        color: #333;
+      }
+
+      #slideContainer {
+        display: flex;
+        overflow: hidden;
+        width: 90vw;
+        height: 70vh;
+        background-color: #ffffff;
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+        border-radius: 12px;
+        position: relative;
+      }
+
+      /* Slide container styling */
+      .slide {
+        min-width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.5s ease-in-out;
+        padding: 20px;
+      }
+
+      #txt {
+        font-size: 2.5rem;
+        color: #222;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+      }
+
+      table {
+        border-collapse: collapse;
+        margin-top: 20px;
+        width: 70%;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      td {
+        padding: 15px;
+        font-size: 1.4rem;
+        font-weight: bold;
+        color: #333;
+        background-color: #f1f5f9;
+        border: 1px solid #ccc;
+        text-align: center;
+        transition: background-color 0.3s ease;
+      }
+
+      /* Styling for each cell with specific IDs */
+      #td1 {
+        background-color: #ffdede;
+      }
+      #td2 {
+        background-color: #d6ecfa;
+      }
+      td:hover {
+        background-color: #fef9e7;
+      }
+
+      /* Responsive design for smaller screens */
+      @media (max-width: 768px) {
+        #txt {
+          font-size: 2rem;
+        }
+        table {
+          width: 90%;
+        }
+        td {
+          font-size: 1.2rem;
+        }
+      }
+
+      #cardContainer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      #sec {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid #ff9c9e;
+        border-radius: 15px;
+        padding: 20px;
+        width: 200px;
+        background-color: #fff3e0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, background-color 0.3s ease;
+        text-align: center;
+      }
+
+      #sec:hover {
+        transform: scale(1.05);
+        background-color: #ffe0b2;
+      }
+
+      #sec p {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #ff5722;
+        margin-bottom: 10px;
+      }
+
+      #sec span {
+        font-size: 1.2rem;
+        color: #757575;
+        margin-bottom: 10px;
+      }
+
+      #sec .emoji {
+        font-size: 2rem;
+        color: #ff7043;
+      }
+
+      /* Additional styling for #sec (birthday display) */
+      /* #sec {
+      border: 2px solid #a6c0fe;
+      border-radius: 10px;
+      width: 150px;
+      text-align: center;
+      padding: 15px;
+      margin-top: 20px;
+      display: inline-block;
+      margin-left: 30px;
+      background-color: #e0f7fa;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    } */
+
+      /* #sec:hover {
+      transform: scale(1.05);
+      background-color: #ffecd2;
+    }
+
+    Add hover effects for main elements
+    .slide:hover {
+      background-color: #f9f9f9;
+      box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    } */
+      /* #slideContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center; Center-align the items
+  justify-content: flex-start;
+  width: 100vw;
+  height: auto; Adjust height to fit content
+  position: relative;
+  margin: auto;
+  background-color: #e0f7fa;
+  padding: 20px;
+} */
+
+      /* #sec {
+  display: inline-block;
+  width: 150px;
+  height: auto;
+  padding: 10px;
+  margin: 10px 0; Add vertical margin to separate from countdown
+  border-radius: 10px;
+  background-color: #fff3e0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  font-size: 1rem;
+  color: #ff7043;
+} */
+      /* 
+#countdownTable {
+  margin-bottom: 20px; Add space below the countdown
+} */
+    </style>
+  </head>
+  <body>
+    <div id="slideContainer"></div>
+    <div id="cardContainer"></div>
+    <!-- Content will be added via JavaScript -->
+    <script>
+    //   let data = localStorage.getItem("userData");
+    //   let d = JSON.parse(data);
+    //   console.log(d);
+
+    //   let slideContainer = document.getElementById("slideContainer");
+
+    //   d.forEach((birthday, i) => {
+    //     let slide = document.createElement("div");
+    //     //   slide.style.minWidth = "100%"; // Each slide takes the full width
+    //     //   slide.style.transition = "transform 0.5s ease"; // Smooth transition effect
+    //     //   // slide.style.backgroundColor="yellow"
+    //     //   slide.setAttribute("id", "main");
+
+    //     slide.classList.add("slide");
+
+    //     let table = document.createElement("table");
+    //     //   table.setAttribute("id", "tb");
+
+    //     let tr1 = document.createElement("tr");
+    //     let td1 = document.createElement("td");
+    //     let td2 = document.createElement("td");
+    //     let td3 = document.createElement("td");
+    //     let td4 = document.createElement("td");
+
+    //     let tr2 = document.createElement("tr");
+    //     let td5 = document.createElement("td");
+    //     let td6 = document.createElement("td");
+    //     let td7 = document.createElement("td");
+    //     let td8 = document.createElement("td");
+
+    //     let txt = document.createElement("h3");
+    //     txt.setAttribute("id", "txt");
+
+    //     txt.innerHTML = birthday["name"];
+
+    //     td1.innerHTML = "<span>x</span>";
+    //     td2.innerHTML = "<span>y</span>";
+    //     td3.innerHTML = "<span>z</span>";
+    //     td4.innerHTML = "<span>a</span>";
+
+    //     td5.innerHTML = "<span>Days</span>";
+    //     td6.innerHTML = "<span>Hours</span>";
+    //     td7.innerHTML = "<span>Minutes</span>";
+    //     td8.innerHTML = "<span>Seconds</span>";
+
+    //     tr1.append(td1, td2, td3, td4);
+    //     tr2.append(td5, td6, td7, td8);
+    //     table.append(tr1, tr2);
+
+    //     slide.append(table, txt);
+    //     slideContainer.append(slide);
+
+    //     td1.setAttribute("id", "td1");
+    //     td2.setAttribute("id", "td1");
+    //     td3.setAttribute("id", "td1");
+    //     td4.setAttribute("id", "td1");
+
+    //     td5.setAttribute("id", "td2");
+    //     td6.setAttribute("id", "td2");
+    //     td7.setAttribute("id", "td2");
+    //     td8.setAttribute("id", "td2");
+
+    //     let count = new Date(`${birthday["date"]}`);
+    //     setCountDown(count, td1, td2, td3, td4);
+
+    //     setInterval(() => {
+    //       setCountDown(count, td1, td2, td3, td4);
+    //     }, 1000);
+
+    //     function setCountDown(Time, td1, td2, td3, td4) {
+    //       let now = new Date();
+    //       let remainingTime = Time - now;
+
+    //       let sec = Math.floor(remainingTime / 1000);
+    //       let min = Math.floor(remainingTime / (1000 * 60));
+    //       let ho = Math.floor(remainingTime / (1000 * 60 * 60));
+    //       let day = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+
+    //       let daysToDisplay = day;
+    //       let hoursToDisplay = ho - day * 24;
+    //       let minutesToDisplay = min - ho * 60;
+    //       let secondsToDisplay = sec - min * 60;
+
+    //       td1.innerText = daysToDisplay;
+    //       td2.innerText = hoursToDisplay;
+    //       td3.innerText = minutesToDisplay;
+    //       td4.innerText = secondsToDisplay;
+    //     }
+    //   });
+
+    //   // Add controls for sliding between birthday countdowns
+    //   let currentSlide = 0;
+    //   function showSlide(index) {
+    //     slideContainer.style.transform = `translateX(-${index * 100}%)`;
+    //   }
+
+    //   setInterval(() => {
+    //     currentSlide = (currentSlide + 1) % d.length; // Loop through the slides
+    //     showSlide(currentSlide);
+    //   }, 5000); // Slide every 5 seconds
+
+    let data = localStorage.getItem("userData");
+let d = JSON.parse(data);
+console.log(d);
+
+
+let slideContainer = document.getElementById("slideContainer");
+
+// document.body.append(slideContainer)
+// Create slides for each birthday in the data
+d.forEach((birthday, i) => {
+  let slide = document.createElement("div");
+  slide.classList.add("slide");
+
+  let table = document.createElement("table");
+
+  let tr1 = document.createElement("tr");
+  let td1 = document.createElement("td");
+  let td2 = document.createElement("td");
+  let td3 = document.createElement("td");
+  let td4 = document.createElement("td");
+
+  let tr2 = document.createElement("tr");
+  let td5 = document.createElement("td");
+  let td6 = document.createElement("td");
+  let td7 = document.createElement("td");
+  let td8 = document.createElement("td");
+
+  let txt = document.createElement("h3");
+  txt.setAttribute("id", "txt");
+  txt.innerHTML = birthday["name"];
+
+  td1.innerHTML = "<span>x</span>";
+  td2.innerHTML = "<span>y</span>";
+  td3.innerHTML = "<span>z</span>";
+  td4.innerHTML = "<span>a</span>";
+
+  td5.innerHTML = "<span>Days</span>";
+  td6.innerHTML = "<span>Hours</span>";
+  td7.innerHTML = "<span>Minutes</span>";
+  td8.innerHTML = "<span>Seconds</span>";
+
+  tr1.append(td1, td2, td3, td4);
+  tr2.append(td5, td6, td7, td8);
+  table.append(tr1, tr2);
+
+  slide.append(table, txt);
+  slideContainer.append(slide);
+
+  td1.setAttribute("id", "td1");
+  td2.setAttribute("id", "td1");
+  td3.setAttribute("id", "td1");
+  td4.setAttribute("id", "td1");
+
+  td5.setAttribute("id", "td2");
+  td6.setAttribute("id", "td2");
+  td7.setAttribute("id", "td2");
+  td8.setAttribute("id", "td2");
+
+  let count = new Date(`${birthday["date"]}`);
+  setCountDown(count, td1, td2, td3, td4);
+
+  setInterval(() => {
+    setCountDown(count, td1, td2, td3, td4);
+  }, 1000);
+
+  function setCountDown(Time, td1, td2, td3, td4) {
+    let now = new Date();
+    let remainingTime = Time - now;
+
+    let sec = Math.floor(remainingTime / 1000);
+    let min = Math.floor(remainingTime / (1000 * 60));
+    let ho = Math.floor(remainingTime / (1000 * 60 * 60));
+    let day = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+
+    let daysToDisplay = day;
+    let hoursToDisplay = ho - day * 24;
+    let minutesToDisplay = min - ho * 60;
+    let secondsToDisplay = sec - min * 60;
+
+    td1.innerText = daysToDisplay;
+    td2.innerText = hoursToDisplay;
+    td3.innerText = minutesToDisplay;
+    td4.innerText = secondsToDisplay;
+  }
+});
+
+// Add controls for sliding between birthday countdowns
+let currentSlide = 0;
+
+function showSlide(index) {
+  slideContainer.style.transform = `translateX(-${index * 100}%)`;
+}
+
+setInterval(() => {
+  currentSlide = (currentSlide + 1) % d.length; // Loop through the slides
+  showSlide(currentSlide);
+}, 5000); // Slide every 5 seconds
+
+
+      // for (i = 0; i < d.length; i++) {
+      //   let sec_div = document.createElement("div");
+
+      //   sec_div.setAttribute("id", "sec");
+
+      //   let text = document.createElement("p");
+
+      //   let text2 = document.createElement("span");
+
+      //   let text3 = document.createElement("p");
+
+      //   text.innerHTML = d[i]["name"];
+
+      //   text2.innerHTML = d[i]["date"];
+
+      //   text3.innerHTML = "🎉🎈🥳";
+
+      //   sec_div.append(text, text2, text3);
+
+      //   document.body.append(sec_div);
+      // }
+      // Assuming 'slideContainer' div is the parent container for 'sec' divs
+      // let cardContainer = document.getElementById("card");
+      let cardContainer = document.getElementById("cardContainer");
+      d.forEach((birthday) => {
+        let sec_div = document.createElement("div");
+        sec_div.setAttribute("id", "sec");
+
+        let text = document.createElement("p");
+        text.innerHTML = birthday["name"];
+
+        let text2 = document.createElement("span");
+        text2.innerHTML = birthday["date"];
+
+        let text3 = document.createElement("p");
+        text3.classList.add("emoji");
+        text3.innerHTML = "🎉🎈🥳";
+
+        sec_div.append(text, text2, text3);
+        cardContainer.append(sec_div);
+      });
+
+      // for (let i = 0; i < d.length; i++) {
+      //   let sec_div = document.createElement("div");
+
+      //   // Add styling to sec_div for a card look
+      //   sec_div.setAttribute("id", "sec");
+      //   sec_div.style.display = "flex";
+      //   sec_div.style.flexDirection = "column";
+      //   sec_div.style.alignItems = "center";
+      //   sec_div.style.justifyContent = "center";
+      //   sec_div.style.border = "2px solid #ff9c9e";
+      //   sec_div.style.borderRadius = "15px";
+      //   sec_div.style.padding = "20px";
+      //   sec_div.style.margin = "15px";
+      //   sec_div.style.width = "200px";
+      //   sec_div.style.backgroundColor = "#fff3e0";
+      //   sec_div.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
+      //   sec_div.style.transition = "transform 0.3s ease, background-color 0.3s ease";
+
+      //   // Add hover effect for each card
+      //   sec_div.onmouseover = () => {
+      //     sec_div.style.transform = "scale(1.05)";
+      //     sec_div.style.backgroundColor = "#ffe0b2";
+      //   };
+      //   sec_div.onmouseleave = () => {
+      //     sec_div.style.transform = "scale(1)";
+      //     sec_div.style.backgroundColor = "#fff3e0";
+      //   };
+
+      //   // Add content to the card
+      //   let text = document.createElement("p");
+      //   text.innerHTML = d[i]["name"];
+      //   text.style.fontSize = "1.5rem";
+      //   text.style.fontWeight = "bold";
+      //   text.style.color = "#ff5722";
+      //   text.style.marginBottom = "10px";
+
+      //   let text2 = document.createElement("span");
+      //   text2.innerHTML = d[i]["date"];
+      //   text2.style.fontSize = "1.2rem";
+      //   text2.style.color = "#757575";
+      //   text2.style.marginBottom = "10px";
+
+      //   let text3 = document.createElement("p");
+      //   text3.innerHTML = "🎉🎈🥳";
+      //   text3.style.fontSize = "2rem";
+      //   text3.style.color = "#ff7043";
+
+      //   // Append content to sec_div
+      //   sec_div.append(text, text2, text3);
+
+      //   // Append sec_div to slideContainer so it appears below the countdown table
+      //   cardContainer.append(sec_div);
+      // }
+    </script>
+  </body>
+</html>

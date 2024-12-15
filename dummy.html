@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        #tb{
+            border: 5px solid;
+            visibility: hidden;
+
+        }
+
+        #tb1{
+          border-top: 1px solid;
+          visibility: visible;
+          border-collapse: collapse;
+          width: 50vw;
+          height: 15vh;
+          text-align: center;
+        }
+
+        #td1{
+          border-top: 2px solid;
+          border-left: 2px solid;
+          border-right: 2px solid;
+          border-collapse: collapse;
+           border-radius: 20px;
+        }
+
+        #td2{
+          border-bottom: 2px solid;
+          border-left: 2px solid;
+          border-right: 2px solid;
+          border-collapse: collapse;
+           border-radius: 20px;
+        }
+        
+
+        #main{
+          background-color: red ;
+          height: 60vh;
+          display: grid;
+          align-items: center;
+          justify-items: center;
+        }
+
+
+        #sec{
+            border: 2px solid;
+            border-radius: 10px;
+            width: 150px;
+            text-align: center;
+            margin-top: 20px;
+            display: inline-block;
+            margin-left: 30px;
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- <div>
+
+        <table style="visibility:hidden;" id="tab">
+            <tr>
+                <td id="days"><span>a</span></td>
+                <td id="hours"><span>x</span></td>
+                <td id="minutes"><span>y</span></td>
+                <td id="seconds"><span>z</span></td>
+            </tr>
+
+            <tr>
+                <td><span>Days</span></td>
+                <td><span>Hours</span></td>
+                <td><span>Minutes</span></td>
+                <td><span>Seconds</span></td>
+            </tr>
+        </table>
+
+
+    </div>  -->
+
+
+
+   
+
+    <script>
+
+        
+        
+        
+        let data=localStorage.getItem("userData")
+        
+        let d=JSON.parse(data)
+        
+        console.log(d);
+        
+        for(i=0;i<d.length;i++){
+
+
+
+          let dii=document.createElement("div")
+
+dii.setAttribute("id","main")
+
+            let table=document.createElement("table")
+
+            table.setAttribute("id","tb")
+
+            let tr1=document.createElement("tr")
+            let td1=document.createElement("td")
+            let td2=document.createElement("td")
+            let td3=document.createElement("td")
+            let td4=document.createElement("td")
+
+            let tr2=document.createElement("tr")
+            let td5=document.createElement("td")
+            let td6=document.createElement("td")
+            let td7=document.createElement("td")
+            let td8=document.createElement("td")
+
+            td1.innerHTML="<span>x</span>"
+            td2.innerHTML="<span>y</span>"
+            td3.innerHTML="<span>z</span>"
+            td4.innerHTML="<span>a</span>"
+
+            td5.innerHTML="<span>Days</span>"
+            td6.innerHTML="<span>Hours</span>"
+            td7.innerHTML="<span>Minutes</span>"
+            td8.innerHTML="<span>Seconds</span>"
+
+
+
+
+
+            tr1.append(td1,td2,td3,td4)
+            tr2.append(td5,td6,td7,td8)
+
+            table.append(tr1,tr2)
+
+            dii.append(table)
+
+            document.body.append(dii)
+
+
+
+            td1.setAttribute("id","td1")
+            td2.setAttribute("id","td1")
+            td3.setAttribute("id","td1")
+            td4.setAttribute("id","td1")
+
+            td5.setAttribute("id","td2")
+            td6.setAttribute("id","td2")
+            td7.setAttribute("id","td2")
+            td8.setAttribute("id","td2")
+
+
+            // let newYear=new Date().getFullYear();
+
+        let count=new Date(`${d[i]["date"]}`);
+        
+        setCountDown(count);
+
+        setInterval(()=>{
+
+            setCountDown(count)
+
+        },1000)
+
+        function setCountDown(Time){
+
+            let now=new Date();
+            // now.setYear(now.getYear() );
+            
+
+            let remainingTime= Time- now;
+
+            // console.log(remainingTime);  //remainigTime is in milliseconds and change it to normal
+
+             //Seconds
+
+             let sec=Math.floor(remainingTime/1000);
+
+             //Minutes
+
+             let min=Math.floor(remainingTime/(1000*60))
+
+             //Hours
+
+             let ho=Math.floor(remainingTime/(1000*60*60))
+
+             //Days
+
+             let day=Math.floor(remainingTime/(1000*60*60*24))
+
+
+            //  console.log(sec,min,ho,day);
+
+             //  Absolute time is left in each unit and now substract each bigger unit from smaller
+
+             let daysToDisplay=day;
+
+             //Substract 24 hours for every day remaining from the hour count
+
+             let hoursToDisplay= ho - (day*24);
+
+             //Substract 60 Minutes for every hour remaining from the minute count
+
+             let minutesToDisplay= min - (ho*60)
+
+             //Substract 60 seconds for every minute remaining from the second count
+
+             let secondsToDisplay= sec - (min*60);
+
+            //  console.log(daysToDisplay,hoursToDisplay,minutesToDisplay,secondsToDisplay);
+
+
+table.setAttribute("id","tb1")
+    
+
+td1.innerText=daysToDisplay
+
+
+td2.innerText=hoursToDisplay
+
+
+
+td3.innerText=minutesToDisplay
+
+
+
+td4.innerText=secondsToDisplay
+
+}
+
+        }
+
+
+for(i=0;i<d.length;i++){
+
+    let sec_div=document.createElement("div")
+    
+    sec_div.setAttribute("id","sec")
+    
+    let text=document.createElement("p")
+    
+    let text2=document.createElement("span")
+    
+    let text3=document.createElement("p")
+    
+    text.innerHTML=d[i]["name"]
+    
+    text2.innerHTML=d[i]["date"]
+    
+    text3.innerHTML="🎉🎈🥳"
+    
+    sec_div.append(text,text2,text3)
+    
+    document.body.append(sec_div)
+
+}
+
+        //Another divvv
+
+
+    </script>
+
+
+</body>
+</html>
+

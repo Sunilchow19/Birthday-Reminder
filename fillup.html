@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- <link rel="stylesheet" href="./css/bootstrap.min.css"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+        
+        body{
+          background-color: #A594F9;
+        }
+     
+        /* #in{
+            padding-bottom: 20px;
+            width: 70vw;
+            border-radius: 7px;
+            
+            
+            } */
+
+            #main_div{
+             display: grid;
+              align-items: center;
+              height: 100vh;
+            }
+
+            #child_div{
+              display: grid;
+              justify-items: center;
+            }
+           
+            #form{
+                padding-bottom: 15px;
+                padding: 15px 15px;
+                display: grid;
+                justify-content: center;
+                width: 90%;
+            }
+            /* #d{
+            border: 2px solid;
+            width: 70vw;
+            height: 70vh;
+
+        } */
+
+/*         
+        #del{
+            display: grid;
+            justify-content: end;
+        } */
+
+        /* input field styling */
+        #in{
+            width: 150%;
+            padding: 10px;
+            margin-left: -40px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        /* date styling */
+        #dte{
+          width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+    font-size: 1rem;
+        }
+
+        #scroll{
+          border: 5px solid #E5D9F2 ;
+          padding: 2%;
+          border-radius: 20px;
+          background-color: #F5EFFF;
+          font-size: x-large;
+          font-weight: lighter;
+          font-style: italic;
+        }
+
+        #emoji{
+          font-style:normal ;
+        }
+
+        /* remainder button styling */
+        #btn-1{
+          width: 10vw;
+            /* padding: 10px; */
+            /* margin-left: 45%; */
+            /* border: 1px solid #ddd; */
+            /* border-radius: 5px; */
+    /* font-size: 1rem; */
+        }
+
+        /* okay button styling
+        #alertt{
+          visibility: hidden;
+        } */
+        #popup{
+          visibility:hidden;
+        }
+
+        
+    </style>
+        
+</head>
+<body>
+  
+  <div  id="main_div">
+
+
+
+    <div id="child_div">
+      
+      <marquee behavior="scroll" direction="right" scrollamount="15" id="scroll"> <span id="emoji">🥳 🎉 🎂</span> Birthday Reminder  <span id="emoji">🥳 🎉 🎂</span></marquee>
+      <form action="" id="form" >
+        <input type="text" value="" placeholder="Enter Your Name" id="in">
+        <!-- <br> -->
+       
+        
+      </form>
+
+      <form action="">
+        <input type="date" name="" id="dte">
+        <br>
+        <br>
+      </form>
+      
+      
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" id="btn-1">
+        Add Reminder
+      </button>
+      
+     
+
+
+ <!-- Modal -->
+ <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"   >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Countdown</h5>
+        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
+          <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div id="popup" >
+      <div class="modal-body">
+        You will be redirected to Countdown page
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="bt">Okay</button>
+      </div>
+    </div>
+
+
+    <div id="first" >
+      <div class="modal-body" >
+        Please enter Details
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Okay</button>
+      </div>
+
+    </div>
+  
+  </div>
+</div>
+</div>
+
+  
+  
+  
+  
+</div>
+
+  
+</div>
+
+
+<script >
+    
+    let btn=document.getElementById("btn-1")
+    
+    let arr=[]
+        btn.addEventListener("click",(e)=>{
+            e.preventDefault()
+
+            
+            let inp=document.getElementById("in")
+            
+            
+            let dat=document.getElementById("dte")
+
+            let i=inp.value
+            let d=dat.value
+
+            
+            
+            let obj={
+                name:i,
+                date:d,
+            }
+
+            if(i==""||d==""){
+              let fi=document.getElementById("first")
+             
+              
+            }
+
+            // console.log(obj);
+
+
+            else{
+              let pop=document.getElementById("popup")
+              pop.style.visibility="visible"
+              let fi=document.getElementById("first")
+              fi.style.visibility="collapse"
+              arr.push(obj);
+              localStorage.setItem("userData",JSON.stringify(arr));
+            
+            let b=document.getElementById("bt")
+
+            b.addEventListener("click",()=>{
+
+                window.location.assign("./countdown.html")
+              
+            })
+            }
+            
+           
+
+
+            
+            
+            
+            
+            
+            
+            // let lis=document.createElement("li")
+            // lis.innerText=inp.value
+                        // lis.style.display="inline-block"
+            
+                        // let edit_btn=document.createElement("button")
+                        // // edit_btn.setAttribute("id","btn")
+                        // edit_btn.innerText="Edit"
+                        // edit_btn.addEventListener("click",()=>{
+            
+            
+                        //     values=prompt("Enter a new task:")
+                        //     lis.innerText=values
+                        
+            
+                        // })
+                    
+                        // let del_btn=document.createElement("button")
+                        // del_btn.setAttribute("id","btn")
+                        // del_btn.innerText="Delete"
+                        
+                        
+                        
+                        // del_btn.addEventListener("click",()=>{
+            
+                        //     lis.remove();
+                        //     edit_btn.remove();
+                        //     del_btn.remove();
+            
+                        // })
+            
+                        
+                        // document.body.append(lis,del_btn,edit_btn);
+                        
+                        // //   val=""
+                        
+                        // inp.value=""
+                    })
+
+                    // localStorage.clear();
+
+                    </script>
+
+                    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+                </body>
+
+</html>

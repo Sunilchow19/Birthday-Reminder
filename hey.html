@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    #tb {
+      border: 5px solid;
+      border-top: 1px solid;
+      border-collapse: collapse;
+      margin-top: auto;
+      width: 50vw;
+      height: 15vh;
+      text-align: center;
+      border-radius: 10px;
+    }
+
+    /*tb1{
+      border-top: 1px solid;
+      visibility: visible;
+      border-collapse: collapse;
+      width: 50vw;
+      height: 15vh;
+      text-align: center;
+    }*/
+
+    #td1 {
+      border-top: 2px solid;
+      border-left: 2px solid;
+      border-right: 2px solid;
+      border-collapse: collapse;
+      border-radius: 20px;
+    }
+
+    #td2 {
+      border-bottom: 2px solid;
+      border-left: 2px solid;
+      border-right: 2px solid;
+      border-collapse: collapse;
+      border-radius: 20px;
+    }
+
+    #main {
+      background-color: rgba(234, 144, 232, 0.919);
+      height: 60vh;
+      /* margin: auto; */
+      display: grid;
+      align-items: center;
+      justify-items: center;
+    }
+
+    #sec {
+      border: 2px solid;
+      border-radius: 10px;
+      width: 150px;
+      text-align: center;
+      margin-top: 20px;
+      display: inline-block;
+      margin-left: 30px;
+    }
+
+    #txt {
+      font-size: xxx-large;
+
+      font-weight: lighter;
+      font-style: italic;
+    }
+    /* 
+     body{
+        background-color: green;
+     } */
+  </style>
+  <body>
+    <script>
+      let data = localStorage.getItem("userData");
+      let d = JSON.parse(data);
+      console.log(d);
+
+      let slideContainer = document.createElement("div"); // Create a container for sliding birthdays
+      slideContainer.style.display = "flex"; // To align items in a row
+      // slideContainer.style.overflow = "hidden"; // Hide items outside the container
+      slideContainer.style.width = "100vw"; // Width of the container
+      slideContainer.style.height = "60vh"; // Height of the container
+      slideContainer.style.position = "relative"; // Relative positioning for slides
+      slideContainer.style.margin = "auto"; // Center the container
+      slideContainer.style.backgroundColor = "green";
+      document.body.append(slideContainer);
+
+      d.forEach((birthday, i) => {
+        let slide = document.createElement("div");
+        slide.style.minWidth = "100%"; // Each slide takes the full width
+        slide.style.transition = "transform 0.5s ease"; // Smooth transition effect
+        // slide.style.backgroundColor="yellow"
+        slide.setAttribute("id", "main");
+
+        let table = document.createElement("table");
+        table.setAttribute("id", "tb");
+
+        let tr1 = document.createElement("tr");
+        let td1 = document.createElement("td");
+        let td2 = document.createElement("td");
+        let td3 = document.createElement("td");
+        let td4 = document.createElement("td");
+
+        let tr2 = document.createElement("tr");
+        let td5 = document.createElement("td");
+        let td6 = document.createElement("td");
+        let td7 = document.createElement("td");
+        let td8 = document.createElement("td");
+
+        let txt = document.createElement("h3");
+        txt.setAttribute("id", "txt");
+
+        txt.innerHTML = birthday["name"];
+
+        td1.innerHTML = "<span>x</span>";
+        td2.innerHTML = "<span>y</span>";
+        td3.innerHTML = "<span>z</span>";
+        td4.innerHTML = "<span>a</span>";
+
+        td5.innerHTML = "<span>Days</span>";
+        td6.innerHTML = "<span>Hours</span>";
+        td7.innerHTML = "<span>Minutes</span>";
+        td8.innerHTML = "<span>Seconds</span>";
+
+        tr1.append(td1, td2, td3, td4);
+        tr2.append(td5, td6, td7, td8);
+        table.append(tr1, tr2);
+
+        slide.append(table, txt);
+        slideContainer.append(slide);
+
+        td1.setAttribute("id", "td1");
+        td2.setAttribute("id", "td1");
+        td3.setAttribute("id", "td1");
+        td4.setAttribute("id", "td1");
+
+        td5.setAttribute("id", "td2");
+        td6.setAttribute("id", "td2");
+        td7.setAttribute("id", "td2");
+        td8.setAttribute("id", "td2");
+
+        let count = new Date(`${birthday["date"]}`);
+        setCountDown(count, td1, td2, td3, td4);
+
+        setInterval(() => {
+          setCountDown(count, td1, td2, td3, td4);
+        }, 1000);
+
+        function setCountDown(Time, td1, td2, td3, td4) {
+          let now = new Date();
+          let remainingTime = Time - now;
+
+          let sec = Math.floor(remainingTime / 1000);
+          let min = Math.floor(remainingTime / (1000 * 60));
+          let ho = Math.floor(remainingTime / (1000 * 60 * 60));
+          let day = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+
+          let daysToDisplay = day;
+          let hoursToDisplay = ho - day * 24;
+          let minutesToDisplay = min - ho * 60;
+          let secondsToDisplay = sec - min * 60;
+
+          td1.innerText = daysToDisplay;
+          td2.innerText = hoursToDisplay;
+          td3.innerText = minutesToDisplay;
+          td4.innerText = secondsToDisplay;
+        }
+      });
+
+      // Add controls for sliding between birthday countdowns
+      let currentSlide = 0;
+      function showSlide(index) {
+        slideContainer.style.transform = `translateX(-${index * 100}%)`;
+      }
+
+      setInterval(() => {
+        currentSlide = (currentSlide + 1) % d.length; // Loop through the slides
+        showSlide(currentSlide);
+      }, 5000); // Slide every 5 seconds
+
+      for (i = 0; i < d.length; i++) {
+        let sec_div = document.createElement("div");
+
+        sec_div.setAttribute("id", "sec");
+
+        let text = document.createElement("p");
+
+        let text2 = document.createElement("span");
+
+        let text3 = document.createElement("p");
+
+        text.innerHTML = d[i]["name"];
+
+        text2.innerHTML = d[i]["date"];
+
+        text3.innerHTML = "🎉🎈🥳";
+
+        sec_div.append(text, text2, text3);
+
+        document.body.append(sec_div);
+      }
+    </script>
+  </body>
+</html>
